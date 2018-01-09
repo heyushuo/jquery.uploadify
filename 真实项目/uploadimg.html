@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="css/uploadify.css"/>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			html,body{
+				font-family: "微软雅黑";
+				padding: 0;
+				margin: 0;
+				/*background: gainsboro;*/
+			}
+			.box{
+				width: 100%;
+				overflow: hidden;
+			}
+			.head{
+				background: #017EC0;
+				height: 130px;
+			}
+			h2{
+				line-height: 130px;
+				color: #FFFFff;
+				text-indent: 1em;
+				padding: 0;
+				margin: 0;
+			}
+			.result .row .col-sm-6{
+				
+			}
+			.result .row .col-sm-6 .mainbox{
+				background: #fff;
+				padding: 10px 0;
+				margin-top: 10px;
+			}
+			.result img{
+				width: 100px;
+				height: 150px;
+				margin-left: 10px;
+			}
+			.result p{
+				padding: 12px 0;
+				font-weight: bold;
+			}
+			.loadimg img{
+			    height: 138px;
+    			width: 120px;
+			}
+			.loadimg input{
+				width: 130px;
+			}
+			#imglist li{
+				list-style: none;
+				padding: 10px;
+			}
+			.btnall{
+				position: relative;
+			}
+			.btnnone{
+				position: absolute;
+				left: 0;
+				top:-1px;
+			}
+			.btnnone1{
+				position: absolute;
+				top: 0;
+				left: 100px;
+			}
+			.btnnone2{
+				position: absolute;
+				top: 7px;
+				left: 220px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="head">
+				<h2>公情搜脸</h2>
+			</div>
+			<div class="row" style="background: #fff;padding: 30px;">
+				<div class="col-sm-1">
+					
+				</div>
+				<div class="col-sm-10">
+					<p class="btnall" style="margin: 20px 0;"><input type="file" multiple="multiple" name="file_upload" id="file_upload" value="" /><input class="btn btn-success btnnone" type="button" style="margin:0 20px 0 0;" name="" id="uploadimg" value="选择文件" /><a class="btnnone1" href="javascript:$('#file_upload').uploadify('upload', '*');"><input class="btn btn-primary" type="button" name="" id="send" value="开始上传" /></a><span class="btnnone2">最多上传 <span style="color: red;">1000</span> 个附件,单文件最大 <span style="color: red;">2 MB</span></span></p>
+					<p>支持 *.jpg、*.bmp、*.gif、*.png格式。  <span style="color: red;">必须将文件名改为“姓名”+“身份证号”，如“王晓明110109198011014040.jpg”。</span></p>
+					<div>
+						<h3>文件列表</h3>
+						<div style="min-height:200px;width: 400px;border: 1px solid gainsboro;">
+							<ul id="queue">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="padding: 30px;">
+				<div class="col-sm-1">
+					
+				</div>
+				<div class="col-sm-10">
+					<input type="button" name="" id="" value="返回" onclick="window.location.href='index.html'" class="btn btn-primary" />
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.uploadify.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var err_code = {"401":"图片名格式错误"}
+        $(function() {
+        		$('#file_upload').uploadify({
+//                'debug':true,
+	                'queueID'       : "queue",
+	                'fileTypeExts'  : '*.JPG;*.GIF;*.PNG;*.BMP',
+	                'buttonText' 		: '上传图片', //按钮文字   
+					'height' 			: 30, //按钮高度   
+					'width' 			: 100, //按钮宽度   
+	                'multi' : true,
+	                'simUploadLimit' : 5,
+	                'auto'     : false,
+	                'fileSizeLimit'   : "2048KB",
+	                'queueSizeLimit'  : 1000,
+//	                'swf'      : 'http://10.24.102.36//public/uploadify/uploadify.swf',
+//	                'buttonImage' : '/public/images/swfBnt_select.png',
+	                'removeCompleted' : false,
+	                'requeueErrors'   : false,          // Keep errored files in the queue and keep trying to upload them
+	                'width'           : 75,                // The width of the browse button
+	                'height'          : 28,
+	                'uploadLimit'     : 0,                  // The maximum number of files you can upload
+	//                'buttonClass'     : '',
+	//                'buttonImage'     : '//public/images/swfBnt_select.png',
+	                'uploader' : 'http://192.168.8.103:9090/gongan/admin/upload/uploadFile.do',
+	                //上传失败
+	                'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+	              
+	                },
+					//上传成功   
+					'onUploadSuccess' : function(file, data,response) {
+						//alert(file.name + ' | ' + response + ':' + data);   
+						console.log(data)
+					},
+
+	            });
+        	})
+</script>

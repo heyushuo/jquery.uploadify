@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>uploadify 多文件上传例子</title>
+<script src="jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="jquery.uploadify.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="uploadify.css"/>
+<style type="text/css">
+body {
+	font: 13px Arial, Helvetica, Sans-serif;
+}
+
+.haha {
+	color: #FFFFFF;
+}
+
+#queue {
+	background-color: #FFF;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+	height: 103px;
+	margin-bottom: 10px;
+	overflow: auto;
+	padding: 5px 10px;
+	width: 300px;
+}
+</style>
+</head>
+
+<body>
+	<h1>Uploadify Demo</h1>
+	<form>
+		<div id="queue"></div>
+		<input id="file_upload" name="file_upload" type="file" multiple="true">
+	</form>
+	<script type="text/javascript">
+		$(function() {
+			$('#file_upload')
+					.uploadify(
+							{	
+								'queueID': "queue",
+					'fileTypeExts': '*.JPG;*.GIF;*.PNG;*.BMP',
+					'buttonText' 		: '上传图片', //按钮文字   
+					'height' 			: 30, //按钮高度   
+					'width' 			: 100, //按钮宽度   
+					'multi': true,
+					'simUploadLimit': 5,
+					'auto': false,
+					'fileSizeLimit': "2048KB",
+					'queueSizeLimit': 1000,
+//					'swf': 'http://10.24.102.36//public/uploadify/uploadify.swf',
+//					'buttonImage': '/public/images/swfBnt_select.png',
+					'removeCompleted': false,
+					'requeueErrors': false, // Keep errored files in the queue and keep trying to upload them
+					'width': 75, // The width of the browse button
+					'height': 28,
+					'uploadLimit': 0, // The maximum number of files you can upload
+					//                'buttonClass'     : '',
+					//                'buttonImage'     : '//public/images/swfBnt_select.png',
+					'uploader': '/imgupload/previw/',
+					'onUploadError': function(file, errorCode, errorMsg, errorString) {
+						//                    alert('The file ' + file.name + ' could not be uploaded: ' + errorCode+"|"+errorMsg+"|"+ errorString);
+						var err_msg = file.name + " -- <span class = 'fail'>上传失败：</span>";
+						switch(errorMsg) {
+							case "401":
+								err_msg += "<span class = 'hint'>图片名格式错误</span>";
+								break;
+							case "402":
+								err_msg += "<span class = 'hint'>文件上传错误</span>";
+								break;
+							case "403":
+								err_msg += "<span class = 'hint'>特征抓取失败</span>";
+								break;
+							case "405":
+								err_msg += "<span class = 'hint'>图片大小超过限制</span>";
+								break;
+							case "406":
+								err_msg += "<span class = 'hint'>图片存储路径失效</span>";
+								break;
+							case "500":
+							default:
+								err_msg += "<span class = 'hint'>未知错误</span>";
+						}
+						//                    err_msg = $("<li>"+ err_msg + "</li>");
+						//                    $("#error_list").append(err_msg);
+					}
+
+							});
+		});
+
+		//变换按钮   
+		function changeBtnText() {
+			$('#file_upload').uploadify('settings', 'buttonText', '继续上传');
+		}
+
+		//返回按钮   
+		function returnBtnText() {
+			alert('The button says '
+					+ $('#file_upload').uploadify('settings', 'buttonText'));
+		}
+	</script>
+	<h4>操作:</h4>
+	<a href="javascript:$('#file_upload').uploadify('upload', '*');">开始上传</a>
+	|
+	<a href="javascript:$('#file_upload').uploadify('cancel', '*');">清除队列</a>
+	|
+	<a href="javascript:$('#file_upload').uploadify('destroy');">销毁上传</a> |
+	<a href="javascript:$('#file_upload').uploadify('disable', true);">禁用上传</a>
+	|
+	<a href="javascript:$('#file_upload').uploadify('disable', false);">激活上传</a>
+	|
+	<a href="javascript:$('#file_upload').uploadify('stop');">停止上传</a> |
+	<a href="changeBtnText();">变换按钮</a> |
+	<h4>大小:</h4>
+	<div id='progress'></div>
+</body>
+</html>
