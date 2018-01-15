@@ -102,7 +102,7 @@
 					
 				</div>
 				<div class="col-sm-10">
-					<input type="button" name="" id="" value="返回" onclick="window.location.href='index.html'" class="btn btn-primary" />
+					<input type="button" name="" id="" value="返回" onclick="window.location.href='index.do'" class="btn btn-primary" />
 				</div>
 			</div>
 		</div>
@@ -125,8 +125,9 @@
 	                'auto'     : false,
 	                'fileSizeLimit'   : "2048KB",
 	                'queueSizeLimit'  : 1000,
-//	                'swf'      : 'http://10.24.102.36//public/uploadify/uploadify.swf',
-//	                'buttonImage' : '/public/images/swfBnt_select.png',
+	                 'fileObjName'     : 'fileName',
+	                'swf'      : 'uploadify.swf',
+	                'buttonImage' : '/img/swfBnt_upload.png',
 	                'removeCompleted' : false,
 	                'requeueErrors'   : false,          // Keep errored files in the queue and keep trying to upload them
 	                'width'           : 75,                // The width of the browse button
@@ -134,7 +135,7 @@
 	                'uploadLimit'     : 0,                  // The maximum number of files you can upload
 	//                'buttonClass'     : '',
 	//                'buttonImage'     : '//public/images/swfBnt_select.png',
-	                'uploader' : 'http://192.168.8.103:9090/gongan/admin/upload/uploadFile.do',
+	                'uploader' : 'batchReg.do',
 	                //上传失败
 	                'onUploadError' : function(file, errorCode, errorMsg, errorString) {
 	              
